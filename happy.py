@@ -1,50 +1,84 @@
 import streamlit as st
 import random
 
-st.set_page_config(page_title="Valentine 💖", layout="centered")
+st.set_page_config(
+    page_title="Valentine 💖",
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
 
-# Session state to track No clicks
+# State
 if "no_clicks" not in st.session_state:
     st.session_state.no_clicks = 0
 
-st.markdown(
-    """
-    <style>
-    .card {
-        background-color: white;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        text-align: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# ---------- STYLE ----------
+st.markdown("""
+<style>
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
 
+.card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 420px;
+    margin: auto;
+}
+
+.big-yes button {
+    width: 100% !important;
+    height: 70px !important;
+    font-size: 28px !important;
+    border-radius: 40px !important;
+    background-color: #ff4d6d !important;
+    color: white !important;
+}
+
+.small-no button {
+    font-size: 14px !important;
+    border-radius: 20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---------- CARD ----------
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 
-st.markdown("## 🐱💖")
-st.markdown("### Nirali, will you be my Valentine?")
+# IMAGE (YES, YOU CAN ADD IMAGES ✅)
+st.image(
+    "https://i.imgur.com/4M7IWwP.png",  # cute cat image
+    width=120
+)
 
-# Random layout for buttons
-cols = st.columns(random.choice([2, 3, 4]))
+st.markdown("## 💖 Aastha Anand")
+st.markdown("### Will you be my Valentine? 🌹")
 
-yes_col = cols[0]
-no_col = cols[-1]
+st.write("")
 
-with yes_col:
-    if st.button("💖 Yes"):
-        st.success("Yay! 💖 You just made my day 😍")
+# RANDOM BUTTON POSITION EFFECT
+cols = st.columns(random.choice([3, 4, 5]))
+
+# YES button (BIG)
+with cols[0]:
+    st.markdown("<div class='big-yes'>", unsafe_allow_html=True)
+    if st.button("💖 YES 💖"):
+        st.success("Yay! 💕 You just made my day 😍")
         st.balloons()
         st.stop()
+    st.markdown("</div>", unsafe_allow_html=True)
 
-with no_col:
-    if st.button("🙈 No"):
+# NO button (small + escaping)
+with cols[-1]:
+    st.markdown("<div class='small-no'>", unsafe_allow_html=True)
+    if st.button("No 🙈"):
         st.session_state.no_clicks += 1
-        st.warning(f"Nice try 😄  No is feeling shy ({st.session_state.no_clicks})")
+        st.warning(f"No is shy 😄 (tries: {st.session_state.no_clicks})")
         st.experimental_rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
 
-st.caption("Hint: The 'No' button is very shy 😄")
+st.caption("Hint: The NO button is very shy 😉")
 
 st.markdown("</div>", unsafe_allow_html=True)
