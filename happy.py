@@ -74,9 +74,9 @@ with cols[0]:
 with cols[-1]:
     st.markdown("<div class='small-no'>", unsafe_allow_html=True)
     if st.button("No 🙈"):
-        st.session_state.no_clicks += 1
-        st.warning(f"No is shy 😄 (tries: {st.session_state.no_clicks})")
-        st.experimental_rerun()
+    st.session_state.no_clicks += 1
+    st.warning(f"No is shy 😄 (tries: {st.session_state.no_clicks})")
+    st.rerun()
     st.markdown("</div>", unsafe_allow_html=True)
 
 st.caption("Hint: The NO button is very shy 😉")
