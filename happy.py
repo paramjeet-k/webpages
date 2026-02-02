@@ -7,17 +7,23 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# State
+# ---------- SESSION STATE ----------
 if "no_clicks" not in st.session_state:
     st.session_state.no_clicks = 0
 
-# ---------- STYLE ----------
+# ---------- STYLE (REMOVE WHITE BAR + DESIGN) ----------
 st.markdown("""
 <style>
+/* Remove Streamlit top white bar */
+header {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* Background */
 body {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
+/* Card */
 .card {
     background: #ffffff;
     padding: 35px;
@@ -28,6 +34,7 @@ body {
     margin: auto;
 }
 
+/* Big YES button */
 .big-yes button {
     width: 100% !important;
     height: 70px !important;
@@ -37,6 +44,7 @@ body {
     color: white !important;
 }
 
+/* Small NO button */
 .small-no button {
     font-size: 14px !important;
     border-radius: 20px !important;
@@ -47,21 +55,17 @@ body {
 # ---------- CARD ----------
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 
-# IMAGE (YES, YOU CAN ADD IMAGES ✅)
-st.image(
-    "https://i.imgur.com/4M7IWwP.png",  # cute cat image
-    width=120
-)
+# Image (use local image if possible)
+st.image("https://i.imgur.com/4M7IWwP.png", width=120)
 
 st.markdown("## 💖 Aastha Anand")
 st.markdown("### Will you be my Valentine? 🌹")
-
 st.write("")
 
-# RANDOM BUTTON POSITION EFFECT
+# ---------- RANDOM BUTTON POSITION ----------
 cols = st.columns(random.choice([3, 4, 5]))
 
-# YES button (BIG)
+# YES button (big)
 with cols[0]:
     st.markdown("<div class='big-yes'>", unsafe_allow_html=True)
     if st.button("💖 YES 💖"):
@@ -70,13 +74,13 @@ with cols[0]:
         st.stop()
     st.markdown("</div>", unsafe_allow_html=True)
 
-# NO button (small + escaping)
+# NO button (escaping)
 with cols[-1]:
     st.markdown("<div class='small-no'>", unsafe_allow_html=True)
     if st.button("No 🙈"):
-    st.session_state.no_clicks += 1
-    st.warning(f"No is shy 😄 (tries: {st.session_state.no_clicks})")
-    st.rerun()
+        st.session_state.no_clicks += 1
+        st.warning(f"No is shy 😄 (tries: {st.session_state.no_clicks})")
+        st.rerun()
     st.markdown("</div>", unsafe_allow_html=True)
 
 st.caption("Hint: The NO button is very shy 😉")
